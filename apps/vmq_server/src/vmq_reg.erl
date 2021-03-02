@@ -862,6 +862,9 @@ add_subscriber(Topics, OldSubs, SubscriberId) ->
           end, Topics),
     case vmq_subscriber:add(OldSubs, NewSubs) of
         {NewSubs0, true} ->
+            error_logger:error_msg(
+                "ADD SUBSCRIBER topics = ~p, old_subs = ~p, sub_id = ~p, new_subs = ~p",
+                [Topics, OldSubs, SubscriberId, NewSubs0]),
             vmq_subscriber_db:store(SubscriberId, NewSubs0);
         _ ->
             ok
