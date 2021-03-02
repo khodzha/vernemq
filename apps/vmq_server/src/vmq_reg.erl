@@ -849,6 +849,9 @@ fold_subscribers(FoldFun, Acc) ->
                       {topic(), {qos() | not_allowed, map()}}],
                      vmq_subscriber:subs(), subscriber_id()) -> ok.
 add_subscriber(Topics, OldSubs, SubscriberId) ->
+    error_logger:error_msg(
+                "ADD SUBSCRIBER topics = ~p, old_subs = ~p, sub_id = ~p",
+                [Topics, OldSubs, SubscriberId]),
     NewSubs =
         lists:filter(
           fun({_T, QoS}) when is_integer(QoS) ->
